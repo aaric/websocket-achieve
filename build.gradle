@@ -1,0 +1,54 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'org.springframework.boot'
+
+repositories {
+    maven {
+        url "http://maven.aliyun.com/nexus/content/groups/public/"
+    }
+}
+
+dependencies {
+    compile("org.slf4j:slf4j-api:1.7.25")
+    compile("org.apache.logging.log4j:log4j-slf4j-impl:2.8.+")
+    compile("org.apache.logging.log4j:log4j-core:2.8.+")
+    compile("org.apache.commons:commons-lang3:3.6")
+
+    compile("org.springframework.boot:spring-boot-starter-websocket:$springBootVersion") {
+        exclude group: "ch.qos.logback", module: "logback-classic"
+    }
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion") {
+        exclude group: "ch.qos.logback", module: "logback-classic"
+    }
+
+    compile("org.springframework.boot:spring-boot-devtools:$springBootVersion")
+
+    testCompile("junit:junit:4.12")
+    testCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
+}
+
+compileJava {
+    options.encoding = "UTF-8"
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+}
+
+compileTestJava {
+    options.encoding = "UTF-8"
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+}
+
+bootRun {
+    addResources = true
+}
+
+buildscript {
+    repositories {
+        maven {
+            url "http://maven.aliyun.com/nexus/content/groups/public/"
+        }
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+    }
+}

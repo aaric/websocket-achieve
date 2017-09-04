@@ -1,0 +1,15 @@
+# Spring settings
+spring:
+    thymeleaf:
+        cache: false
+    profiles:
+        active: dev
+
+# Tomcat settings
+server:
+    port: 8080
+    context-path: /test
+    compression:
+        enabled: true
+    tomcat:
+        uri-encoding: UTF-8
